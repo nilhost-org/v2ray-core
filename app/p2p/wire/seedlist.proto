@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+
+package wire;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+option (gogoproto.equal_all) = true;
+option (gogoproto.populate_all) = true;
+// designed to be shared between all app protocols
+// The greeting service definition.
+
+
+message MessageData {
+    // shared between all requests
+    string clientVersion = 1; // client version
+    int64 timestamp = 2;     // unix time
+    string id = 3;           // allows requesters to use request data when processing a response
+    bool gossip = 4;         // true to have receiver peer gossip the message to neighbors
+    string nodeId = 5;       // id of node that created the message (not the peer that may have sent it). =base58(multihash(nodePubKey))
+    bytes nodePubKey = 6;    // Authoring node Secp256k1 public key (32bytes) - protobufs serielized
+    bytes sign = 7;         // signature of message data + method specific data by message authoring node.
+}
+
+//// ping protocol
+
+// a protocol define a set of reuqest and responses
+message SeedListRequest {
+    MessageData messageData = 1;
+
+    // method specific data
+    string message = 2;
+    // add any data here....
+}
+
+message SeedListResponse {
+    MessageData messageData = 1;
+
+    // response specific data
+    string message = 2;
+
+    // ... add any additional message data here
+}
+
+enum ActionType {
+    SEED_ONLINE = 0;
+    SEED_OFFLINE = 1;
+    SEED_SUSPEND = 2;
+    SEED_UPDATE = 3;
+}
+
+message SeedInfo {
+    string protocol = 1;
+    string ip = 2;
+    int32 port = 3;
+    string hostID = 4;
+}
+
+message HelloSeedList {
+    ActionType action = 1;
+    SeedInfo  seed = 2;
+    string nonce = 3;
+}

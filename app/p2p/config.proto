@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package v2ray.core.app.p2p;
+option csharp_namespace = "V2Ray.Core.App.P2P";
+option go_package = "p2p";
+option java_package = "com.v2ray.core.app.p2p";
+option java_multiple_files = true;
+message seed{
+    string protocol = 1;
+    string ip = 2;
+    int32 port = 3;
+    string pub_id = 4;
+}
+message Config {
+    string protocol = 1;
+    string ip = 2;
+    int32 port = 3;
+    string pub_id = 4;
+    repeated seed seedlist=5;
+}

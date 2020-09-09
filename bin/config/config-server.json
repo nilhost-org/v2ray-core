@@ -1,0 +1,28 @@
+{
+  "log":{
+    "loglevel":"debug",
+    "access":"./log/access.log",
+    "error":"./log/error.log"
+  },
+  "porter":{
+    "Protocol":"tcp",
+    "InterfaceName":"en0",
+    "InnerIP":"192.168.1.115",
+    "PublicIP": "192.168.1.115",
+    "RandomPortBegin": 55535,
+    "RandomPortRange": 10000,
+    "UPort":6008,
+    "KPort":6008,
+    "QPort":6008,
+    "TPort":6008,
+    "PortTimeout":180,
+    "NetworkID":1564141146,
+    "PubKey":"86bfd182fffba4ebf289fdab8962d4934453ce329665bb2cc287005fc2e6b678",
+    "WriteBufferSize":8388608,
+    "LogDir":"./",
+    "LogLevel":1,
+    "PorterDBPath":"./porterdb",
+    "Compression":{"Enable":false,"CompressAlgo":1,"FileSize":4194304},
+    "InfluxDB":{"URL":"http://192.168.1.115:8086","DBName":"metric","UserName":"saveio","Password":"onchain@beijing","Interval":3}
+  }
+}

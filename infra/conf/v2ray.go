@@ -327,6 +327,7 @@ type Config struct {
 	Api             *ApiConfig             `json:"api"`
 	Stats           *StatsConfig           `json:"stats"`
 	Reverse         *ReverseConfig         `json:"reverse"`
+	P2P         	*P2PConfig             `json:"p2p"`
 }
 
 func (c *Config) findInboundTag(tag string) int {
@@ -379,6 +380,9 @@ func (c *Config) Override(o *Config, fn string) {
 	}
 	if o.Reverse != nil {
 		c.Reverse = o.Reverse
+	}
+	if o.P2P != nil {
+		c.P2P = o.P2P
 	}
 
 	// deprecated attrs... keep them for now
@@ -474,6 +478,12 @@ func (c *Config) Build() (*core.Config, error) {
 			return nil, err
 		}
 		config.App = append(config.App, serial.ToTypedMessage(statsConf))
+	}
+
+	if c.P2P != nil {
+		config.App = append(config.App, serial.ToTypedMessage(c.P2P.Build()))
+	} else {
+		config.App = append(config.App, serial.ToTypedMessage(DefaultP2PConfig()))
 	}
 
 	var logConfMsg *serial.TypedMessage
