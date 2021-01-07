@@ -19,6 +19,7 @@ require (
 	github.com/libp2p/go-libp2p-yamux v0.2.8
 	github.com/libp2p/go-tcp-transport v0.2.0
 	github.com/libp2p/go-ws-transport v0.3.1
+	github.com/lucas-clemente/quic-go v0.19.3
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/miekg/dns v1.1.31
 	github.com/multiformats/go-multiaddr v0.3.1
